@@ -34,36 +34,6 @@ export default function CustomDrawer({ props, Logo }) {
       path: "/send-money",
       active: false,
     },
-    {
-      icon: <Entypo name="credit-card" size={hp(2.5)} color={theme.secondary} />, // Added for Airtime & Data
-      name: "Airtime & Data",
-      path: "/airtime-data",
-      active: false,
-    },
-    {
-      icon: <Entypo name="credit" size={hp(2.5)} color={theme.secondary} />, // Added for Pay Bills
-      name: "Pay Bills",
-      path: "/pay-bills",
-      active: false,
-    },
-    {
-      icon: <Entypo name="credit-card" size={hp(2.5)} color={theme.secondary} />, // Added for Payment Methods
-      name: "Payment Methods",
-      path: "/payment-methods",
-      active: false,
-    },
-    {
-      icon: <Entypo name="user" size={hp(2.5)} color={theme.secondary} />, // Added for Profile
-      name: "Profile",
-      path: "/profile",
-      active: false,
-    },
-    {
-      icon: <Entypo name="help" size={hp(2.5)} color={theme.secondary} />, // Added for Help & Support
-      name: "Help & Support",
-      path: "/help-support",
-      active: false,
-    },
   ];
 
   return (
@@ -155,7 +125,7 @@ const styles = StyleSheet.create({
   },
   navText: {
     fontSize: hp(2),
-    marginLeft: hp(1.5),
+    marginLeft: hp(1.2),
   },
   drawerItem: {
     borderRadius: hp(0.7),

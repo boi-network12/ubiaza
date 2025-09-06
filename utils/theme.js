@@ -15,7 +15,7 @@ export const darkTheme = {
   background: '#0D0F0FFF',
   text: '#FFFFFF',
   primary: '#0057FF',
-  secondary: '#A9B0B3',
+  secondary: '#AAADADFF',
   accent: '#FF0000',
   button: '#00AEEF',
   card: '#2D3336',
