@@ -5,6 +5,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Logo from "../../../assets/images/logo.png";
 import HomeHeader from '../../../components/Header/HomeHeader';
 import BalanceCard from '../../../components/UI/BalanceCard';
+import Beneficiaries from '../../../components/UI/Beneficiaries';
 import QuickActions from '../../../components/UI/QuickActions';
 import { useTheme } from '../../../context/ThemeContext';
 
@@ -33,6 +34,10 @@ export default function Dashboard() {
         <QuickActions
            theme={theme}
         />
+
+        <Beneficiaries
+          theme={theme}
+        />
       </ScrollView>
     </SafeAreaView>
   )
@@ -46,6 +51,6 @@ const styles = StyleSheet.create({
   contentsSections: {
     paddingHorizontal: hp(2),
     paddingVertical: hp(2),
-    marginTop: hp(1)
+    marginVertical: hp(2)
   }
 })
