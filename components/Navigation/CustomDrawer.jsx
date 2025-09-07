@@ -1,7 +1,7 @@
 import { Entypo, Fontisto, MaterialIcons } from '@expo/vector-icons';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { usePathname, useRouter } from 'expo-router';
-import { cloneElement, useEffect } from 'react';
+import { cloneElement } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme } from '../../context/ThemeContext';
@@ -11,9 +11,6 @@ export default function CustomDrawer({ props, Logo }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    console.log(pathname);
-  }, [pathname]);
 
   const _NavDetails = [
     {

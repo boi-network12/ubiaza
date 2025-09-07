@@ -23,3 +23,4 @@ export default function Layout() {
     </GestureHandlerRootView>
   );
 }
+// app/(drawer)/_layout

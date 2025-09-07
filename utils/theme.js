@@ -8,7 +8,8 @@ export const lightTheme = {
   button: '#00AEEF',
   card: '#F5F7F9',
   border: '#E0E0E0', 
-  textActive: "#FFFFFF"
+  textActive: "#FFFFFF",
+  subText: "#555"
 };
 
 export const darkTheme = {
@@ -20,5 +21,6 @@ export const darkTheme = {
   button: '#00AEEF',
   card: '#2D3336',
   border: '#2A2D2F', 
-  textActive: "#FFFFFF"
+  textActive: "#FFFFFF",
+  subText: "#f2f2f2"
 };
