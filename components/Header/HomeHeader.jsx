@@ -1,6 +1,6 @@
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useRef, useState } from "react";
-import { Animated, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, Image, Platform, Pressable, StatusBar as RNStatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 export default function HomeHeader({ theme, Logo, title, navigation }) {
@@ -42,6 +42,7 @@ export default function HomeHeader({ theme, Logo, title, navigation }) {
 
   const toggleDrawer = () => {
     navigation.toggleDrawer();
+    setShowMenu(false)
   }
 
   return (
@@ -55,68 +56,70 @@ export default function HomeHeader({ theme, Logo, title, navigation }) {
       )}
 
       {/* HEADER */}
-      <View style={[styles.container, { borderBottomColor: theme.border }]}>
-        {/* LEFT SIDE */}
-        <View style={styles.leftSide}>
-          <TouchableOpacity onPress={toggleDrawer}>
-            <Feather name="menu" size={hp(2.9)} color={theme.text} />
-          </TouchableOpacity>
-
-          <View style={styles.LogoContainer}>
-            <Image
-              source={Logo}
-              style={{
-                width: hp(4),
-                height: hp(4),
-                resizeMode: "contain"
-              }}
-            />
-            <Text style={[styles.headerText, { color: theme.text }]}>{title}</Text>
-          </View>
-        </View>
-
-        {/* RIGHT SIDE */}
-        <View style={styles.rightSide}>
-          <TouchableOpacity>
-            <MaterialCommunityIcons name="bell-badge-outline" size={hp(2.9)} color={theme.text} />
-          </TouchableOpacity>
-
-          <View style={styles.profileClick}>
-            <TouchableOpacity onPress={() => setShowMenu(!showMenu)}>
-              <View style={[styles.profileIcon, { backgroundColor: theme.primary }]}>
-                <Text style={[styles.profileText, { color: "#fff" }]}>KO</Text>
-              </View>
+      <View style={[styles.wrapper, { backgroundColor: theme.background }]}>
+        <View style={[styles.container, { borderBottomColor: theme.border }]}>
+          {/* LEFT SIDE */}
+          <View style={styles.leftSide}>
+            <TouchableOpacity onPress={toggleDrawer}>
+              <Feather name="menu" size={hp(2.9)} color={theme.text} />
             </TouchableOpacity>
 
-            {/* ANIMATED DROPDOWN MENU */}
-            {showMenu && (
-              <Animated.View
-                style={[
-                  styles.dropdown,
-                  {
-                    backgroundColor: theme.card,
-                    borderColor: theme.border,
-                    opacity: fadeAnim,
-                    transform: [{ translateY: slideAnim }]
-                  }
-                ]}
-              >
-                <TouchableOpacity style={styles.dropdownItem} onPress={() => setShowMenu(false)}>
-                  <Feather name="user" size={hp(2.3)} color={theme.text} />
-                  <Text style={[styles.dropdownText, { color: theme.text }]}>Profile</Text>
-                </TouchableOpacity>
+            <View style={styles.LogoContainer}>
+              <Image
+                source={Logo}
+                style={{
+                  width: hp(4),
+                  height: hp(4),
+                  resizeMode: "contain"
+                }}
+              />
+              <Text style={[styles.headerText, { color: theme.text }]}>{title}</Text>
+            </View>
+          </View>
 
-                <TouchableOpacity style={styles.dropdownItem} onPress={() => setShowMenu(false)}>
-                  <Feather name="help-circle" size={hp(2.3)} color={theme.text} />
-                  <Text style={[styles.dropdownText, { color: theme.text }]}>Help & Support</Text>
-                </TouchableOpacity>
+          {/* RIGHT SIDE */}
+          <View style={styles.rightSide}>
+            <TouchableOpacity>
+              <MaterialCommunityIcons name="bell-badge-outline" size={hp(2.9)} color={theme.text} />
+            </TouchableOpacity>
 
-                <TouchableOpacity style={styles.dropdownItem} onPress={() => setShowMenu(false)}>
-                  <Feather name="log-out" size={hp(2.3)} color={theme.text} />
-                  <Text style={[styles.dropdownText, { color: theme.text }]}>Sign Out</Text>
-                </TouchableOpacity>
-              </Animated.View>
-            )}
+            <View style={styles.profileClick}>
+              <TouchableOpacity onPress={() => setShowMenu(!showMenu)}>
+                <View style={[styles.profileIcon, { backgroundColor: theme.primary }]}>
+                  <Text style={[styles.profileText, { color: "#fff" }]}>KO</Text>
+                </View>
+              </TouchableOpacity>
+
+              {/* ANIMATED DROPDOWN MENU */}
+              {showMenu && (
+                <Animated.View
+                  style={[
+                    styles.dropdown,
+                    {
+                      backgroundColor: theme.card,
+                      borderColor: theme.border,
+                      opacity: fadeAnim,
+                      transform: [{ translateY: slideAnim }]
+                    }
+                  ]}
+                >
+                  <TouchableOpacity style={styles.dropdownItem} onPress={() => setShowMenu(false)}>
+                    <Feather name="user" size={hp(2.3)} color={theme.text} />
+                    <Text style={[styles.dropdownText, { color: theme.text }]}>Profile</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={styles.dropdownItem} onPress={() => setShowMenu(false)}>
+                    <Feather name="help-circle" size={hp(2.3)} color={theme.text} />
+                    <Text style={[styles.dropdownText, { color: theme.text }]}>Help & Support</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={styles.dropdownItem} onPress={() => setShowMenu(false)}>
+                    <Feather name="log-out" size={hp(2.3)} color={theme.text} />
+                    <Text style={[styles.dropdownText, { color: theme.text }]}>Sign Out</Text>
+                  </TouchableOpacity>
+                </Animated.View>
+              )}
+            </View>
           </View>
         </View>
       </View>
@@ -125,9 +128,13 @@ export default function HomeHeader({ theme, Logo, title, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    paddingTop: Platform.OS === 'android' ? RNStatusBar.currentHeight : 0,
+  },
   container: {
     width: "100%",
     paddingHorizontal: hp(2),
+    
     paddingVertical: hp(1.5),
     alignItems: "center",
     justifyContent: "space-between",
