@@ -1,87 +1,36 @@
+// BalanceCard.js
 import { AntDesign, Entypo, Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useEffect, useRef } from 'react';
-import {
-  Animated,
-  Easing,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { useRef } from 'react';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
-const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
+import SpiralOverlay from './SpiralOverlay';
 
 export default function BalanceCard({ theme }) {
-  const animatedValue = useRef(new Animated.Value(0)).current;
-
-  // Animation refs for each button
+  // Animation refs for button press effects
   const sendMoneyAnimY = useRef(new Animated.Value(0)).current;
   const sendMoneyBorder = useRef(new Animated.Value(0)).current;
   const addMoneyAnimY = useRef(new Animated.Value(0)).current;
   const addMoneyBorder = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    Animated.loop(
-      Animated.timing(animatedValue, {
-        toValue: 1,
-        duration: 6000,
-        easing: Easing.linear,
-        useNativeDriver: false,
-      })
-    ).start();
-  }, [animatedValue]);
-
-  const startInterpolation = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.1, 1],
-  });
-
-  const endInterpolation = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 0.1],
-  });
-
-  // Handle press in animation
   const handlePressIn = (yAnim, borderAnim) => {
     Animated.parallel([
-      Animated.spring(yAnim, {
-        toValue: -5, // lift up
-        friction: 5,
-        tension: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(borderAnim, {
-        toValue: 1, // go to primary color
-        duration: 150,
-        useNativeDriver: false,
-      }),
+      Animated.spring(yAnim, { toValue: -5, friction: 5, tension: 100, useNativeDriver: true }),
+      Animated.timing(borderAnim, { toValue: 1, duration: 150, useNativeDriver: false }),
     ]).start();
   };
 
-  // Handle press out animation
   const handlePressOut = (yAnim, borderAnim) => {
     Animated.parallel([
-      Animated.spring(yAnim, {
-        toValue: 0, // back to normal
-        friction: 5,
-        tension: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(borderAnim, {
-        toValue: 0, // back to original border
-        duration: 150,
-        useNativeDriver: false,
-      }),
+      Animated.spring(yAnim, { toValue: 0, friction: 5, tension: 100, useNativeDriver: true }),
+      Animated.timing(borderAnim, { toValue: 0, duration: 150, useNativeDriver: false }),
     ]).start();
   };
 
-  // Interpolate border color animation
   const sendMoneyBorderColor = sendMoneyBorder.interpolate({
     inputRange: [0, 1],
-    outputRange: [theme.border, theme.primary], // normal → primary
+    outputRange: [theme.border, theme.primary],
   });
 
   const addMoneyBorderColor = addMoneyBorder.interpolate({
@@ -91,14 +40,18 @@ export default function BalanceCard({ theme }) {
 
   return (
     <View style={styles.container}>
-      {/* Card */}
-      <AnimatedLinearGradient
+      {/* Card with Spiral inside */}
+      <LinearGradient
         colors={['#1441B3FF', '#1E4ED8', '#4A7DFC']}
-        start={{ x: startInterpolation, y: 0 }}
-        end={{ x: endInterpolation, y: 0.9 }}
+        start={{ x: 0.1, y: 0 }}
+        end={{ x: 1, y: 0.9 }}
         locations={[0, 0.5, 1]}
         style={styles.card}
       >
+        <View style={styles.spiralOverlay}>
+          <SpiralOverlay />
+        </View>
+
         <View style={styles.topText}>
           <Text style={styles.topTextHeader}>your account balance</Text>
           <Pressable style={styles.eyeSplash}>
@@ -114,35 +67,20 @@ export default function BalanceCard({ theme }) {
             Available &#8226; account: 2218620823
           </Text>
         </View>
-      </AnimatedLinearGradient>
+      </LinearGradient>
 
       {/* Buttons */}
       <View style={styles.btnDisplay}>
         {/* Send Money */}
-        <Animated.View
-          style={{
-            transform: [{ translateY: sendMoneyAnimY }],
-            flex: 1,
-          }}
-        >
+        <Animated.View style={{ transform: [{ translateY: sendMoneyAnimY }], flex: 1 }}>
           <Pressable
             onPressIn={() => handlePressIn(sendMoneyAnimY, sendMoneyBorder)}
             onPressOut={() => handlePressOut(sendMoneyAnimY, sendMoneyBorder)}
           >
             <Animated.View
-              style={[
-                styles.btn,
-                {
-                  borderColor: sendMoneyBorderColor,
-                  backgroundColor: theme.background,
-                },
-              ]}
+              style={[styles.btn, { borderColor: sendMoneyBorderColor, backgroundColor: theme.background }]}
             >
-              <Entypo
-                name="paper-plane"
-                size={hp(2.2)}
-                color={theme.subText}
-              />
+              <Entypo name="paper-plane" size={hp(2.2)} color={theme.subText} />
               <Text style={[styles.btnText, { color: theme.subText }]}>
                 send money
               </Text>
@@ -153,30 +91,15 @@ export default function BalanceCard({ theme }) {
         <View style={{ width: hp(1) }} />
 
         {/* Add Money */}
-        <Animated.View
-          style={{
-            transform: [{ translateY: addMoneyAnimY }],
-            flex: 1,
-          }}
-        >
+        <Animated.View style={{ transform: [{ translateY: addMoneyAnimY }], flex: 1 }}>
           <Pressable
             onPressIn={() => handlePressIn(addMoneyAnimY, addMoneyBorder)}
             onPressOut={() => handlePressOut(addMoneyAnimY, addMoneyBorder)}
           >
             <Animated.View
-              style={[
-                styles.btn,
-                {
-                  borderColor: addMoneyBorderColor,
-                  backgroundColor: theme.background,
-                },
-              ]}
+              style={[styles.btn, { borderColor: addMoneyBorderColor, backgroundColor: theme.background }]}
             >
-              <AntDesign
-                name="plus"
-                size={hp(2.2)}
-                color={theme.subText}
-              />
+              <AntDesign name="plus" size={hp(2.2)} color={theme.subText} />
               <Text style={[styles.btnText, { color: theme.subText }]}>
                 add money
               </Text>
@@ -197,6 +120,10 @@ const styles = StyleSheet.create({
     borderRadius: hp(1.5),
     padding: hp(2.5),
     marginBottom: hp(2.1),
+    overflow: 'hidden',
+  },
+  spiralOverlay: {
+    ...StyleSheet.absoluteFillObject,
   },
   topText: {
     flexDirection: 'row',
