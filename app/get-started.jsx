@@ -2,16 +2,16 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { useEffect, useRef } from "react";
 import {
-    Animated,
-    Easing,
-    Image,
-    Platform,
-    StatusBar as RNStatusBar,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Animated,
+  Easing,
+  Image,
+  Platform,
+  StatusBar as RNStatusBar,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import IllustrationLogo from "../assets/images/illustration.png"; // Replace with a modern banking-themed illustration
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: hp(4),
+    paddingVertical: hp(10),
     paddingHorizontal: wp(5),
   },
   headerText: {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   illustrationContainer: {
     alignItems: "center",
-    marginVertical: hp(4),
+    marginVertical: hp(0),
   },
   illustration: {
     width: wp(60),
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   button: {
     width: wp(80),
     height: hp(6.5),
-    borderRadius: 12,
+    borderRadius: hp(4),
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000",

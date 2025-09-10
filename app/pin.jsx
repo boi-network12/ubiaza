@@ -33,7 +33,7 @@ export default function PinScreen() {
 
       {/* PIN Dots */}
       <View style={styles.pinDots}>
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <View
             key={i}
             style={[
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
   },
   title: {
-    fontSize: hp(3.5),
-    fontWeight: "700",
+    fontSize: hp(3),
+    fontWeight: "600",
     marginBottom: hp(4),
   },
   pinDots: {
@@ -112,9 +112,9 @@ const styles = StyleSheet.create({
     marginBottom: hp(5),
   },
   dot: {
-    width: hp(3),
-    height: hp(3),
-    borderRadius: hp(1.5),
+    width: hp(2),
+    height: hp(2),
+    borderRadius: hp(1),
     borderWidth: 2,
   },
   keypad: {
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   keyText: {
-    fontSize: hp(3),
-    fontWeight: "600",
+    fontSize: hp(2.5),
+    fontWeight: "500",
   },
 });

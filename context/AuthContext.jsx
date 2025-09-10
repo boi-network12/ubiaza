@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   // Simulate PIN verification
   const verifyPin = async (enteredPin) => {
-  if (enteredPin === "123456") {
+  if (enteredPin === "1234") {
     setIsUnlocked(true);
     router.replace("/dashboard");
     return true;

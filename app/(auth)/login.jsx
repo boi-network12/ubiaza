@@ -3,15 +3,15 @@ import { BlurView } from 'expo-blur';
 import { Link, router } from 'expo-router';
 import { useState } from 'react';
 import {
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    StatusBar as RNStatusBar,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar as RNStatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Logo from "../../assets/images/logo.png";
@@ -150,6 +150,8 @@ const styles = StyleSheet.create({
   inputForm: {
     width: hp(45),
     padding: hp(2),
+    borderBottomRightRadius: hp(2),
+    borderBottomLeftRadius: hp(2),
   },
   FormHeaderText: {
     marginBottom: hp(3),
