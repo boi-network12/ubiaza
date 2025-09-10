@@ -1,6 +1,7 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import 'react-native-reanimated';
+import { AuthProvider } from '../context/AuthContext';
 import { ThemeProvider } from '../context/ThemeContext';
 import "../global.css";
 
@@ -18,13 +19,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false
-        }}
-      >
-        <Stack.Screen name='(drawer)' options={{ headerShown: false }}/>
-      </Stack>
+      <AuthProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false
+          }}
+          >
+            <Stack.Screen name='get-started' options={{ headerShown: false }}/>
+          </Stack>
+        </AuthProvider>
     </ThemeProvider>
   );
 }
